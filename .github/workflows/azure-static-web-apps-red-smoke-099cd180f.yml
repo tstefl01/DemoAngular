@@ -1,15 +1,24 @@
-name: Azure Static Web Apps CI/CD
+name: DEV-BuildDeploy
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+on: 
+  workflow_dispatch:
+    inputs:
+      targetEnvironment:
+        description: 'Dev,QA,Staging,Prod'     
+        required: true
+        default: 'Dev'
+      tags:
+        description: 'Pick target Environment' 
 
 jobs:
+
+  printInputs:
+      runs-on: ubuntu-latest
+      steps:
+      - run: |
+          echo "Target Environment: ${{ github.event.inputs.targetEnvironment }}"
+          echo "Tags: ${{ github.event.inputs.tags }}" 
+
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
@@ -29,7 +38,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
-          output_location: "" # Built app content directory - optional
+          output_location: "dist/angular-basic" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
