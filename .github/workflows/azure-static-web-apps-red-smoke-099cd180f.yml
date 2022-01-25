@@ -8,14 +8,14 @@ on:
         description: Select the environment
       boolean:
         type: boolean
-        description: True or False
+        description: Do you want cake?
       choice:
         type: choice
         description: Make a choice
         options:
-        - foo
-        - bar
-        - baz
+        - Choice 1
+        - Choice 2
+        - Choice 3
 
 jobs:
 
