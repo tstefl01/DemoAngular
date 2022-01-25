@@ -3,12 +3,19 @@ name: DEV-BuildDeploy
 on: 
   workflow_dispatch:
     inputs:
-      targetEnvironment:
-        description: 'Dev,QA,Staging,Prod'     
-        required: true
-        default: 'Dev'
-      tags:
-        description: 'Pick target Environment' 
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
+      choice:
+        type: choice
+        description: Make a choice
+        options:
+        - foo
+        - bar
+        - baz
 
 jobs:
 
